@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1642927476 source:c:\users\dell\documents\codeblock baru\vending machine\main.c
+	<stdio.h>
+	<stdlib.h>
+
