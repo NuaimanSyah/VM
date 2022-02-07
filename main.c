@@ -1,24 +1,37 @@
 #include <stdio.h>
 #include <stdlib.h>
-void billing(float); //declaration of billing function
+int num,opt,opt2,x,i,j; //declaration of integer type of global variables
+char name[20]; //declaration char type of global variable
+char conf; //declaration of global variable for confirmation
+float price; //declaration of global variable for formularize the price
 void menu(); //declaration of menu function
 void fast_food(); //declaration of fast food function
 void cold_drinks(); //declaration of cold drinks function
 void ice_cream(); //declaration of ice cream function
+void billing(float pr); //declaration of billing function
+
 int main()
 {
+    printf("\t\t\t\t\t   **VARIELICIOUS VENDING MACHINE**\n\n");
+    printf("\t\t\t\t\t   WELCOME TO OUR VENDING MACHINE!!\n\n");
+    printf("\t\t\t\t\t      Enter your name : "); //machine prompted the user to enter their name
+    scanf("%s", name); //user enter their name
+    printf("\n\t\t\t\t\t  Hi %s. Welcome to VARIELICIOUS!!", name); //machine greets the user
     menu(); //calling menu function
+    return 0;
 }
 void menu()
 {
     int opt;
-    system("cls");
-    printf("\n\n   **VENDING MACHINE**\n\n");
-    printf("    [1] FAST FOOD\n");
-    printf("    [2] COLD DRINKS\n");
-    printf("    [3] ICE CREAM\n");
-    printf("\n    Enter Your Choice : ");
-    scanf("%d", &opt);
+    printf("\n\n\t\t\t\t\tHere is the list of our items : \n\n");
+    for(num=1;num<4;num++){
+        printf("\t\t\t\t\t[%d] FAST FOOD\n", num=1);
+        printf("\t\t\t\t\t[%d] COLD DRINKS\n", num=2);
+        printf("\t\t\t\t\t[%d] ICE CREAM\n", num=3);
+    }
+    rtr:
+    printf("\n\t\t\t\t\tEnter Your Choice : "); //machine prompted user to enter their choice
+    scanf("%d", &opt); //user enters choice of item
     switch(opt)
     {
         case 1:
@@ -31,280 +44,270 @@ void menu()
             ice_cream(); //calling ice cream function
             break;
         default:
-            printf("\n\n\tINVALID INPUT"); //showing invalid message when user enter invalid input
-            menu(); //calling menu function
+            printf("\t\t\t\t\tCHOOSE AGAIN!!\n"); //showing invalid message when user enter invalid input
+            goto rtr; //retry from rtr
     }
 }
 void fast_food()
 {
-    int opt, opt2, x, i, j; //both i and j are counter variables
-    float a[] = {16.00,24.00,30.00}; //price of different size of PIZZA to display
-    float b[] = {4.60,12.30,2.30}; //price of BURGER, TACO, SANDWICH to display
-    float price;
-    char confirm;
-    system("cls");
-    printf("\n\n   **FAST FOOD**\n\n");
-    printf("    [1] PIZZA\n");
-    printf("    [2] BURGER\n");
-    printf("    [3] TACO\n");
-    printf("    [4] SANDWICH\n");
-    printf("\n    Enter Your Choice : ");
-    scanf("%d", &opt); //user enter 1,2,3 or 4
+    char s[][8] = {{"Regular"},{"Medium"},{"Large"}}; //initialization of size of PIZZA
+    float a[3] = {16.00,24.00,30.00}; //initialization of price of different size of PIZZA
+    float b[3] = {4.60,12.30,2.30}; //initialization of price of BURGER, TACO AND SANDWICH
+    float *aPtr, *bPtr; //2 pointer declaration
+    aPtr=&a[0]; //store address of a[0] in pointer a
+    bPtr=&b[0]; //store address of b[0] in pointer b
+
+    system("cls"); //clear the screen of menu function
+    printf("\n\n\t\t\t\t\t**FAST FOOD**\n\n");
+    for(num=1;num<5;num++){
+        printf("\t\t\t\t\t[%d] PIZZA\n", num=1);
+        printf("\t\t\t\t\t[%d] BURGER\n", num=2);
+        printf("\t\t\t\t\t[%d] TACO\n", num=3);
+        printf("\t\t\t\t\t[%d] SANDWICH\n", num=4);
+    }
+    rtr: //label rtr is defined
+    printf("\n\t\t\t\t\tEnter Your Choice : ");
+    scanf("%d", &opt); //user enter 1/2/3/4
     switch(opt)
     {
-        case 1: //if user enter 1, it displays the size of PIZZA
-        printf("\n\tSize : [1] Regular");
-        printf("\n\t       [2] Medium");
-        printf("\n\t       [3] Large");
-        printf("\n\n\tEnter Your Choice : ");
-        scanf("%d", &opt2);
-        switch(opt2)
-        {
-            case 1: /*if user enter 1, it displays the price of a Regular PIZZA, asks user to enter the quantity of pizza
-                      that user desires,asks for order confirmation and then displays the total amount to be paid*/
-                i=0; //a[0]=16.00
-                ch:
-                printf("\n\tPrice : RM %.2f", a[i]);
-                printf("\n\tHow many do you want? : ");
-                scanf("%d", &x);
-                printf("\n\t(Press Y/y for Yes or N/n for No)");
-
-                conf1:
-                printf("\n\tConfirm Your Order [Y/N] : ");
-                scanf(" %c%*c", &confirm);
-                if(confirm=='Y'||confirm=='y'){ //if user confirmed the order, then it will proceed for payment
-                    goto payment1;}
-                else if(confirm=='N'||confirm=='n'){ /*if user still doubt or  want to changed the desired quantity of burger,
-                                                   it will ask once again for the quantity that user desired and asks
-                                                   for confirmation again*/
-                    printf("\n\tEnter Quantity : ");
-                    scanf("%d", &x);
-                    goto conf1;}
-                else{
-                    printf("\n\tFAILED"); //shows failed message when user enter other than Y/y and N/n
-                    fast_food();} //calling fast food fucntion
-
-                    payment1:
-                    price=x*a[i];
-                    printf("\n\tYou Have to Pay RM %.2f", price);
-                    billing(price); //define billing function
+        case 1:
+            for(num=1;num<4;num++){
+            printf("\n\t\t\t\t\t\tSize : [%d] Regular", num=1);
+            printf("\n\t\t\t\t\t\t       [%d] Medium", num=2);
+            printf("\n\t\t\t\t\t\t       [%d] Large", num=3);
+            }
+            rtr2: //label rtr2 is defined
+            printf("\n\n\t\t\t\t\t\tEnter Your Choice : ");
+            scanf("%d", &opt2);
+            switch(opt2)
+            {
+                case 1:
+                    i=0;
+                    printf("\n\t\t\t\t\t\tPrice of %s PIZZA : RM %.2f", s[i],*(aPtr+i)); /* s[0]=Regular & *aPtr=16.00
+                                                                                           (pointer stay at a[0]) */
+                    goto ch; //jump to ch
                     break;
-            case 2: /*if user enter 2, it displays the price of a Medium PIZZA, asks user to enter the quantity of pizza
-                      that user desires, asks for order confirmation and then displays the total amount to be paid*/
-                i=1; //a[1]=24.00
-                goto ch;
-            case 3: /*if user enter 3, it displays the price of a Large PIZZA, asks user to enter the quantity of pizza
-                      that user desires, asks for order confirmation and then displays the total amount to be paid*/
-                i=2; //a[2]=30.00
-                goto ch;
-        }
+                case 2:
+                    i=1;
+                    printf("\n\t\t\t\t\t\tPrice of %s PIZZA : RM %.2f", s[i],*(aPtr+i)); /* s[1]=Medium & *(aPtr+1)=24.00
+                                                                                           (+1 step from a[0],a[1])*/
+                    goto ch; //jump to ch
+                    break;
+                case 3:
+                    i=2;
+                    printf("\n\t\t\t\t\t\tPrice of %s PIZZA : RM %.2f", s[i],*(aPtr+i)); /* s[2]=Large & *(aPtr+2)=30.00
+                                                                                           (+2 step from a[0],a[2])*/
+                    goto ch; //jump to ch
+                    break;
+                default:
+                    printf("\t\t\t\t\t\tChoose 1/2/3 ONLY!!!"); //displays if user enters other than 1/2/3
+                    goto rtr2; //jump to rtr2
+
+                    ch: //label ch is defined
+                    printf("\n\t\t\t\t\t\tHow many do you want? : "); /*asks user to enter the quantity of PIZZA that user
+                                                                        desires*/
+                    scanf("%d", &x);
+                    price=x * *(aPtr+i);
+                    printf("\n\t\t\t\t\t\tTotal to be paid : RM %.2f\n", price); //displays the total to be paid
+
+                    printf("\n\t\t\t\t\t\t(Press Y/y for Yes or N/n for No)");
+                    printf("\n\t\t\t\t\t\tConfirm Your Order %s : ", name); //asks for order confirmation
+                    scanf(" %c%*c", &conf);
+                    if(conf=='Y'||conf=='y'){ //if user confirmed the order
+                        billing(price);} //calling billing function
+                    else if(conf=='N'||conf=='n'){ //if not
+                        goto ch;} //jump to ch
+                    else{
+                        printf("\n\t\t\t\t\t\tFAILED"); //shows failed message when user enter other than Y/y and N/n
+                        fast_food();} //calling fast food function
+            }
             break;
-        case 2: /*if user enter 2, it displays the price and size of a BURGER, asks user to enter the quantity of pizza
-                  that user desires, asks for order confirmation and then displays the total amount to be paid*/
-            j=0; //b[0]=4.60
-            printf("\n\tPrice of BURGER : RM %.2f", b[j]);
-            printf("\n\tSize : Small");
-
-            ch2:
-            printf("\n\tEnter Quantity : ");
-            scanf("%d", &x);
-            printf("\n\t(Press Y/y for Yes or N/n for No)");
-
-            conf2:
-            printf("\n\tConfirm Your Order [Y/N] : ");
-            scanf(" %c%*c", &confirm);
-            if(confirm=='Y'||confirm=='y'){
-                goto payment2;}
-            else if(confirm=='N'||confirm=='n'){
-                printf("\n\tEnter Quantity : ");
-                scanf("%d", &x);
-                goto conf2;}
-            else{
-                printf("\n\tFAILED");
-                fast_food();} //calling fast food function when user enter invalid input
-
-            payment2:
-            price=x*b[j];
-            printf("\n\tYou Have to Pay RM %.2f", price);
-            billing(price); //define billing fucntion
+        case 2:
+            j=0;
+            printf("\n\t\t\t\t\t\tPrice of BURGER : RM %.2f", *(bPtr+j)); //*bPtr=4.60(pointer stay at b[0])
+            printf("\n\t\t\t\t\t\tSize : Small");
+            goto ch2; //jump to ch2
             break;
-        case 3: /*displays the price and size of a TACO, asks user to enter the quantity of pizza that user desires,
-                  asks for order confirmation and then displays the total amount to be paid*/
-            j=1; //b[1]=12.30
-            printf("\n\tPrice of TACO : RM %.2f", b[j]);
-            printf("\n\tSize : Large");
-            goto ch2;
-        case 4: /*displays the price and size of a SANDWICH, asks user to enter the quantity of pizza that user desires,
-                  asks for order confirmation and then displays the total amount to be paid*/
-            j=2; //b[2]=2.30
-            printf("\n\tPrice of SANDWICH : RM %.2f", b[j]);
-            printf("\n\tSize : Small");
-            goto ch2;
+        case 3:
+            j=1;
+            printf("\n\t\t\t\t\t\tPrice of TACO : RM %.2f", *(bPtr+j)); //*(bPtr+1)=12.30(+1 steps from b[0],b[1])
+            printf("\n\t\t\t\t\t\tSize : Large");
+            goto ch2; //jump to ch2
+            break;
+        case 4:
+            j=2;
+            printf("\n\t\t\t\t\t\tPrice of SANDWICH : RM %.2f", *(bPtr+j)); //*(bPtr+2)=2.30(+2 steps from b[0],b[2])
+            printf("\n\t\t\t\t\t\tSize : Small");
+            goto ch2; //jump to ch2
+            break;
         default:
-            printf("\n\n\tINVALID INPUT");
-            menu(); //calling menu function when user enter invalid input
+            printf("\t\t\t\t\t\tChoose 1/2/3/4 ONLY!!!");
+            goto rtr; //jump to rtr if user enters other than 1/2/3/4
+
+            ch2: //label ch2 is defined
+            printf("\n\t\t\t\t\t\tHow many do you want? : "); //asks user to enter the quantity of selected fast food that user desires
+            scanf("%d", &x);
+            price=x * *(bPtr+j);
+            printf("\n\t\t\t\t\t\tTotal to be paid : RM %.2f\n", price); //displays the total to be paid
+
+            printf("\n\t\t\t\t\t\t(Press Y/y for Yes or N/n for No)");
+            printf("\n\t\t\t\t\t\tConfirm Your Order %s : ", name); //asks for order confirmation
+            scanf(" %c%*c", &conf);
+            if(conf=='Y'||conf=='y'){ //if user confirmed the order
+                billing(price);} //calling billing function
+            else if(conf=='N'||conf=='n'){ //if not
+                goto ch2;} //it jump to ch2
+            else{
+                printf("\n\t\t\t\t\t\tFAILED");
+                fast_food();} //calling fast food function when user enter invalid input
     }
 }
 void cold_drinks()
 {
-    int option, x, i; //i is counter variable
-    float a[]={2.50,2.00,2.20,1.60}; //price of PEPSI, MOUNTAIN DEW, COKE, ICE LEMON TEA to display
-    float price;
-    char confirm;
-    system("cls");
-    printf("\n\n**COLD DRINKS**\n\n");
-    printf("    [1] PEPSI\n");
-    printf("    [2] MOUNTAIN DEW\n");
-    printf("    [3] COKE\n");
-    printf("    [4] ICE LEMON TEA\n");
-    printf("\n    Enter Your Choice : ");
-    scanf("%d", &option);
-    switch(option)
-    {
-        case 1: /*if user enter 1, it displays the price and size of a PEPSI, asks user to enter the quantity of pizza
-                  that user desires, asks for order confirmation and then displays the total amount to be paid*/
-            i=0; //a[0]=2.50
-            printf("\n\tPrice of PEPSI : RM %.2f", a[i]);
-            printf("\n\tQuantity : 200ml");
-
-            ch1:
-            printf("\n\tEnter Quantity : ");
-            scanf("%d", &x);
-            printf("\n\tPress Y/y for Yes or N/n for No");
-
-            conf1:
-            printf("\n\tConfirm Your Order [Y/N] : ");
-            scanf(" %c%*c", &confirm);
-            if(confirm=='Y'||confirm=='y'){
-                goto payment1;}
-            else if(confirm=='N'||confirm=='n'){
-                printf("\n\tEnter Quantity : ");
-                scanf("%d", &x);
-                goto conf1;}
-            else{
-                printf("\n\tFAILED");
-                cold_drinks();} //calling cold drinks function when user enter invalid input
-
-            payment1:
-            price=x*a[i];
-            printf("\n\tYou Have to Pay RM %.2f", price);
-            billing(price); //define billing function
-            break;
-        case 2: /*if user enter 2, it displays the price and size of a MOUNTAIN DEW, asks user to enter the quantity of pizza
-                  that user desires, asks for order confirmation and then displays the total amount to be paid*/
-            i=1; //a[1]=2.00
-            printf("\n\tPrice of MOUNTAIN DEW : RM %.2f", a[i]);
-            printf("\n\tQuantity : 200ml");
-            goto ch1;
-        case 3: /*if user enter 3, it displays the price and size of a COKE, asks user to enter the quantity of pizza
-                  that user desires, asks for order confirmation and then displays the total amount to be paid*/
-            i=2; //a[2]=2.20
-            printf("\n\tPrice of COKE : RM %.2f", a[i]);
-            printf("\n\tQuantity : 210ml");
-            goto ch1;
-        case 4: /*if user enter 4, it displays the price and size of a PEPSI, asks user to enter the quantity of pizza
-                  that user desires, asks for order confirmation and then displays the total amount to be paid*/
-            i=3; //a[3]=1.60
-            printf("\n\tPrice of ICE LEMON TEA : RM %.2f", a[i]);
-            printf("\n\tQuantity : 210ml");
-            goto ch1;
-        default:
-            printf("\n\n\tINVALID INPUT");
-            menu(); //calling menu function when user enter invalid input
+    float a[4]={2.50,2.00,2.20,1.60}; //initialization of the prices of each cold drink
+    float *aPtr; //declaration of pointer a
+    aPtr=&a[0]; //store address of a[0] in pointer a
+    system("cls"); //clear the screen of menu function
+    printf("\n\n\t\t\t\t\t**COLD DRINKS**\n\n");
+    for(num=1;num<5;num++){
+        printf("\t\t\t\t\t[%d] PEPSI\n", num=1);
+        printf("\t\t\t\t\t[%d] MOUNTAIN DEW\n", num=2);
+        printf("\t\t\t\t\t[%d] COKE\n", num=3);
+        printf("\t\t\t\t\t[%d] ICE LEMON TEA\n", num=4);
     }
+    rtr: //label rtr is defined
+    printf("\n\t\t\t\t\tEnter Your Choice : ");
+    scanf("%d", &opt); //user enters 1/2/3/4
+    switch(opt)
+    {
+        case 1:
+            i=0;
+            printf("\n\t\t\t\t\t\tPrice of PEPSI : RM %.2f", *(aPtr+i)); //*aPtr=2.50(pointer stay at a[0])
+            printf("\n\t\t\t\t\t\tQuantity : 200ml");
+            break;
+        case 2:
+            i=1;
+            printf("\n\t\t\t\t\t\tPrice of MOUNTAIN DEW : RM %.2f", *(aPtr+i)); //*aPtr=2.00(+1 step from a[0],a[1])
+            printf("\n\t\t\t\t\t\tQuantity : 200ml");
+            break;
+        case 3:
+            i=2;
+            printf("\n\t\t\t\t\t\tPrice of COKE : RM %.2f", *(aPtr+i)); //*aPtr=2.20(+2 steps from a[0], a[2])
+            printf("\n\t\t\t\t\t\tQuantity : 210ml");
+            break;
+        case 4:
+            i=3;
+            printf("\n\t\t\t\t\t\tPrice of ICE LEMON TEA : RM %.2f", *(aPtr+i)); //*aPtr=1.60(+3 steps from a[0],a[3])
+            printf("\n\t\t\t\t\t\tQuantity : 210ml");
+            break;
+        default:
+            printf("\t\t\t\t\t\tChoose 1/2/3/4 ONLY!!!");
+            goto rtr; //jump to rtr if user enters other than 1/2/3/4
+    }
+            ch: //label ch is defined
+            printf("\n\t\t\t\t\t\tHow many do you want? : ");
+            scanf("%d", &x);
+            price=x * *(aPtr+i);
+            printf("\n\t\t\t\t\t\tTotal to be paid : RM %.2f\n", price);
+
+            printf("\n\t\t\t\t\t\t(Press Y/y for Yes or N/n for No)");
+            printf("\n\t\t\t\t\t\tConfirm Your Order %s : ", name);
+            scanf(" %c", &conf);
+            if(conf=='Y'||conf=='y'){ //if user confirmed the order
+                billing(price);} //calling billing function
+            else if(conf=='N'||conf=='n'){ //if not
+                goto ch;} //jump to ch
+            else{
+                printf("\n\t\t\t\t\t\tFAILED");
+                cold_drinks();} //calling cold drinks function when user enter invalid input
 }
 void ice_cream()
 {
-    int opt, x, i; //i is a counter variable
-    float a[]={2.00,2.40,1.80,2.10}; //price of NEOPOLITAN, CHOCOLATE, STRAWBERRY, LIME VANILLA to display
-    float price;
-    char confirm;
-
+    float a[4]={2.00,2.40,1.80,2.10}; //initialization of the prices of each ice cream
+    float *aPtr;//declaration of pointer a
+    aPtr=&a[0]; //store address of a[0] in pointer a
     system("cls");
-    printf("\n\n**ICE CREAM**\n\n");
-    printf("    [1] NEOPOLITAN\n");
-    printf("    [2] CHOCOLATE\n");
-    printf("    [3] STRAWBERRY\n");
-    printf("    [4] LIME VANILLA\n");
-    printf("\n    Enter Your Choice : ");
+    printf("\n\n\t\t\t\t\t**ICE CREAM**\n\n");
+    for(num=1;num<5;num++){
+        printf("\t\t\t\t\t[%d] NEOPOLITAN\n", num=1);
+        printf("\t\t\t\t\t[%d] CHOCOLATE\n", num=2);
+        printf("\t\t\t\t\t[%d] STRAWBERRY\n", num=3);
+        printf("\t\t\t\t\t[%d] LIME VANILLA\n", num=4);
+    }
+    rtr: //label rtr is defined
+    printf("\n\t\t\t\t\tEnter Your Choice : ");
     scanf("%d", &opt);
     switch(opt)
     {
-        case 1: /*if user enter 1, it displays the price and size of a PEPSI, asks user to enter the quantity of pizza
-                  that user desires, asks for order confirmation and then displays the total amount to be paid*/
-            i=0; //a[0]=2.00
-            printf("\n\tPrice of NEOPOLITAN : RM %.2f", a[i]);
-            printf("\n\tQuantity : 64ml");
-
-            ch1:
-            printf("\n\tEnter Quantity : ");
-            scanf("%d", &x);
-            printf("\n\tPress Y/y for Yes or N/n for No");
-
-            conf1:
-            printf("\n\tConfirm Your Order [Y/N] : ");
-            scanf(" %c%*c", &confirm);
-            if(confirm=='Y'||confirm=='y'){
-                goto payment1;}
-            else if(confirm=='N'||confirm=='n'){
-                printf("\n\tEnter Quantity : ");
-                scanf("%d", &x);
-                goto conf1;}
-            else{
-                printf("\n\tFAILED");
-                ice_cream();} //calling ice cream function when user enter invalid input
-
-            payment1:
-            price=x*a[i];
-            printf("\n\tYou Have to Pay RM %.2f", price);
-            billing(price); //define billing fucntion
+        case 1:
+            i=0;
+            printf("\n\t\t\t\t\t\tPrice of NEOPOLITAN : RM %.2f", *(aPtr+i)); //*aPtr=2.00(pointer stay at a[0])
+            printf("\n\t\t\t\t\t\tQuantity : 64ml");
             break;
-        case 2: /*if user enter 2, it displays the price and size of a CHOCOLATE, asks user to enter the quantity of pizza
-                  that user desires, asks for order confirmation and then displays the total amount to be paid*/
-            i=1; //a[1]=2.40
-            printf("\n\tPrice of CHOCOLATE is : RM %.2f", a[i]);
-            printf("\n\tQuantity : 70ml");
-            goto ch1;
-        case 3: /*if user enter 3, it displays the price and size of a PEPSI, asks user to enter the quantity of pizza
-                  that user desires, asks for order confirmation and then displays the total amount to be paid*/
-            i=2; //a[2]=1.80
-            printf("\n\tPrice of STRAWBERRY : RM %.2f", a[i]);
-            printf("\n\tQuantity : 60ml");
-            goto ch1;
-        case 4: /*if user enter 4, it displays the price and size of a PEPSI, asks user to enter the quantity of pizza
-                  that user desires, asks for order confirmation and then displays the total amount to be paid*/
-            i=3; //a[3]=2.10
-            printf("\n\tPrice of LIME VANILLA : RM %.2f", a[i]);
-            printf("\n\tQuantity : 65ml");
-            goto ch1;
+        case 2:
+            i=1;
+            printf("\n\t\t\t\t\t\tPrice of CHOCOLATE is : RM %.2f", *(aPtr+i)); //*aPtr=2.40(+1 step from a[0],a[1])
+            printf("\n\t\t\t\t\t\tQuantity : 70ml");
+            break;
+        case 3:
+            i=2;
+            printf("\n\t\t\t\t\t\tPrice of STRAWBERRY : RM %.2f", *(aPtr+i)); //*aPtr=1.80(+2 steps from a[0],a[2])
+            printf("\n\t\t\t\t\t\tQuantity : 60ml");
+            break;
+        case 4:
+            i=3;
+            printf("\n\t\t\t\t\t\tPrice of LIME VANILLA : RM %.2f", *(aPtr+i)); //*aPtr=2.10(+3 steps from a[0],a[3])
+            printf("\n\t\t\t\t\t\tQuantity : 65ml");
+            break;
         default:
-            printf("\n\n\tINVALID INPUT");
-            menu(); //calling menu function when user enter invalid input
+            printf("\t\t\t\t\t\tChoose 1/2/3/4 ONLY!!!");
+            goto rtr; //jump to rtr if user enters other than 1/2/3/
     }
+            ch: //ch label is defined
+            printf("\n\t\t\t\t\t\tHow many do you want? : ");
+            scanf("%d", &x);
+            price=x * *(aPtr+i);
+            printf("\n\t\t\t\t\t\tTotal to be paid : RM %.2f\n", price);
+
+            printf("\n\t\t\t\t\t\t(Press Y/y for Yes or N/n for No)");
+            printf("\n\t\t\t\t\t\tConfirm Your Order %s : ", name);
+            scanf(" %c%*c", &conf);
+            if(conf=='Y'||conf=='y'){ //if user confirmed the order
+                billing(price);} //calling billing function
+            else if(conf=='N'||conf=='n'){ //if not
+                goto ch;} //jump to ch
+            else{
+                printf("\n\t\t\t\t\t\tFAILED");
+                ice_cream();} //calling ice cream function when user enter invalid input
 }
-void billing(float p) //function definition of billing function
+void billing(float pr) //function definition of billing function
 {
     float amt; //amount
     char ch; //choice
-    printf("\n\tEnter Amount : ");
+    printf("\n\t\t\t\t\t\tEnter Amount : RM ");
     scanf("%f", &amt); //user enter amount to be paid
-    if(amt<p)
+    if(amt<pr)
     {
-        printf("\n\tInsufficient Amount!!"); /*if the amount to be paid that user entered is less than the actual price, it
+        printf("\n\t\t\t\t\t\tInsufficient Amount!!"); /*if the amount to be paid that user entered is less than the actual price, it
                                                displays Insufficient Amount!!*/
+        system("cls"); //clear the screen of billing function
         menu(); // calling menu function
     }
-    else //if user inputted other than if condition(not satisfied the condition), it will displays the change
+    else if(amt>pr)//if user inputted other than if condition(not satisfied the condition), it will displays the change
     {
-        printf("\n\tYour Change : %.2f", amt-p);
-        printf("\n\tPlease Collect Your Change...");
+        printf("\n\t\t\t\t\t\tYour Change : RM %.2f", amt-pr);
+        printf("\n\t\t\t\t\t\tPlease Collect Your Change...");
     }
-    printf("\n\n\t(Press Y/y for Yes or N/n for No)");
-    printf("\n\tDO YOU WISH TO BUY ANY THING MORE? [Y/N] : ");
+    else{
+        printf("\n\t\t\t\t\t\tYour Change : RM %.2f", amt-pr);
+    }
+    printf("\n\n\t\t\t\t\t\t(Press Y/y for Yes or N/n for No)");
+    printf("\n\t\t\t\t\t\tDO YOU WISH TO BUY ANY THING MORE %s? : ", name); //machine asks user if user want to buy again
     scanf(" %c", &ch);
     if(ch=='Y'||ch=='y'){
+        system("cls"); //clear the screen of billing function
         menu();} //if user desires to buy again, it will call the menu function
     else if(ch=='N'||ch=='n'){
-        printf("\n\t***THANK YOU***");} //if user does not wish to buy anymore, it will print ***THANK YOU***
+        printf("\n\t\t\t\t\t\t***THANK YOU FOR BUYING WITH US***");} //if user does not wish to buy anymore, it will print this
 }
 
